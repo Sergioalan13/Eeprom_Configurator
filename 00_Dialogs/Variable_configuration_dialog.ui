@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>402</width>
+    <height>431</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Variable configuration</string>
+  </property>
+  <widget class="QDialogButtonBox" name="VariableAcceptRejectButton">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>390</y>
+     <width>341</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+   <property name="standardButtons">
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="VariableParametersText">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>221</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>18</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Variable Parameters</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="VariableNameText">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>60</y>
+     <width>61</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Name:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="VariableTypeText">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>100</y>
+     <width>61</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Type:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="VariableDirectionText">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>180</y>
+     <width>71</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Direction:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="VariableInitValueText">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>220</y>
+     <width>71</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Init value:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="VariableCommentText">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>260</y>
+     <width>81</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Comment:</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="VariableTypeComboBox">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>100</y>
+     <width>241</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <item>
+    <property name="text">
+     <string>uint8_t</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>uint16_t</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>uint32_t</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>uint64_t</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>int8_t</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>int16_t</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>int32_t</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>int64_t</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>float</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>char</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLineEdit" name="VariableName">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>60</y>
+     <width>241</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="VariableDirection">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>180</y>
+     <width>241</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="VariableInitValue">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>220</y>
+     <width>111</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="dragEnabled">
+    <bool>false</bool>
+   </property>
+   <property name="readOnly">
+    <bool>false</bool>
+   </property>
+   <property name="clearButtonEnabled">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="VariableComment">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>260</y>
+     <width>241</width>
+     <height>111</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <stylestrategy>PreferDefault</stylestrategy>
+     <kerning>true</kerning>
+    </font>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="inputMethodHints">
+    <set>Qt::ImhMultiLine</set>
+   </property>
+   <property name="frame">
+    <bool>true</bool>
+   </property>
+   <property name="echoMode">
+    <enum>QLineEdit::Normal</enum>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+   </property>
+   <property name="dragEnabled">
+    <bool>false</bool>
+   </property>
+   <property name="placeholderText">
+    <string notr="true"/>
+   </property>
+   <property name="clearButtonEnabled">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="WriteVariableCheckBox">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>230</y>
+     <width>111</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Write variable</string>
+   </property>
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="ArrayCheckBox">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>150</y>
+     <width>70</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Array</string>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="VariableElementsText">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>140</y>
+     <width>71</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Elements:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="VariableElements">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>140</y>
+     <width>111</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>VariableAcceptRejectButton</sender>
+   <signal>accepted()</signal>
+   <receiver>Dialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>VariableAcceptRejectButton</sender>
+   <signal>rejected()</signal>
+   <receiver>Dialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>ArrayCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>VariableElements</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>258</x>
+     <y>158</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>227</x>
+     <y>144</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>WriteVariableCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>VariableInitValue</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>273</x>
+     <y>238</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>223</x>
+     <y>227</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
