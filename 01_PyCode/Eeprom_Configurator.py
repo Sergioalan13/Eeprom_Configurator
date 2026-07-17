@@ -25,16 +25,16 @@ EEPROM_SIZES = {
 }
 #VARIABLE_SIZES = {VariableType : Size}
 VARIABLE_SIZES = {
-    "uint8_t": "1",
-    "uint16_t": "2",
-    "uint32_t": "4",
-    "uint64_t": "8",
-    "int8_t": "1",
-    "int16_t": "2",
-    "int32_t": "4",
-    "int64_t": "8",
-    "float": "4",
-    "char": "1",
+    "uint8_t": 1,
+    "uint16_t": 2,
+    "uint32_t": 4,
+    "uint64_t": 8,
+    "int8_t": 1,
+    "int16_t": 2,
+    "int32_t": 4,
+    "int64_t": 8,
+    "float": 4,
+    "char": 1,
 }
 
 #TABLE_ELEMENTS_INDEX = {Column : Number}
@@ -48,6 +48,10 @@ TABLE_ELEMENTS_INDEX = {
     "Init Value": 6,
     "Comment": 7
 }
+
+DEFAULT_VARIABLE_INIT_VALUE = 0
+
+ELEMENTS_OF_SIMPLE_VARIABLE = 1
 
 # -----------------------------------------------------------------------------
 #                           DIALOGS
@@ -131,15 +135,15 @@ class MainWindow(QMainWindow):
 
             self.isArray = dialog.ui.ArrayCheckBox.isChecked()
             if (False == self.isArray): 
-                self.VariableElements = "1"
+                self.VariableElements = ELEMENTS_OF_SIMPLE_VARIABLE
                 self.VariableTotalSize = VARIABLE_SIZES[self.variableType]
             else: 
-                self.VariableElements = dialog.ui.VariableElements.text()
-                self.VariableTotalSize = str(int(VARIABLE_SIZES[self.variableType]) * int(self.VariableElements))
+                self.VariableElements = int(dialog.ui.VariableElements.text())
+                self.VariableTotalSize = VARIABLE_SIZES[self.variableType] * self.VariableElements
  
             self.isWriteVariable = dialog.ui.WriteVariableCheckBox.isChecked()
             if (False == self.isWriteVariable): 
-                self.variableInitValue = "0"
+                self.variableInitValue = DEFAULT_VARIABLE_INIT_VALUE
             else: 
                 self.variableInitValue = dialog.ui.VariableInitValue.text()
 
@@ -155,10 +159,10 @@ class MainWindow(QMainWindow):
             self.ui.VariablesTableWidget.setItem(self.index, TABLE_ELEMENTS_INDEX["Index"], QTableWidgetItem(str(self.index)))
             self.ui.VariablesTableWidget.setItem(self.index, TABLE_ELEMENTS_INDEX["Name"], QTableWidgetItem(self.variableName))
             self.ui.VariablesTableWidget.setItem(self.index, TABLE_ELEMENTS_INDEX["Type"], QTableWidgetItem(self.variableType))
-            self.ui.VariablesTableWidget.setItem(self.index, TABLE_ELEMENTS_INDEX["Elements"], QTableWidgetItem(self.VariableElements))
-            self.ui.VariablesTableWidget.setItem(self.index, TABLE_ELEMENTS_INDEX["Size"], QTableWidgetItem(self.VariableTotalSize))
+            self.ui.VariablesTableWidget.setItem(self.index, TABLE_ELEMENTS_INDEX["Elements"], QTableWidgetItem(str(self.VariableElements)))
+            self.ui.VariablesTableWidget.setItem(self.index, TABLE_ELEMENTS_INDEX["Size"], QTableWidgetItem(str(self.VariableTotalSize)))
             self.ui.VariablesTableWidget.setItem(self.index, TABLE_ELEMENTS_INDEX["Direction"], QTableWidgetItem(self.variableDirection))
-            self.ui.VariablesTableWidget.setItem(self.index, TABLE_ELEMENTS_INDEX["Init Value"], QTableWidgetItem(self.variableInitValue))
+            self.ui.VariablesTableWidget.setItem(self.index, TABLE_ELEMENTS_INDEX["Init Value"], QTableWidgetItem(str(self.variableInitValue)))
             self.ui.VariablesTableWidget.setItem(self.index, TABLE_ELEMENTS_INDEX["Comment"], QTableWidgetItem(self.variableComment))
 
 
