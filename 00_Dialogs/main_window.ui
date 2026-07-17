@@ -65,7 +65,7 @@
      </rect>
     </property>
     <property name="value">
-     <number>40</number>
+     <number>0</number>
     </property>
    </widget>
    <widget class="QLabel" name="EepromMemoryUsageText">
@@ -73,7 +73,7 @@
      <rect>
       <x>10</x>
       <y>450</y>
-      <width>321</width>
+      <width>171</width>
       <height>31</height>
      </rect>
     </property>
@@ -217,7 +217,7 @@
      <enum>QFrame::Box</enum>
     </property>
     <property name="text">
-     <string>512 kBytes</string>
+     <string/>
     </property>
     <property name="scaledContents">
      <bool>false</bool>
@@ -242,7 +242,7 @@
      <enum>QFrame::Box</enum>
     </property>
     <property name="text">
-     <string>40%</string>
+     <string/>
     </property>
     <property name="scaledContents">
      <bool>false</bool>
@@ -267,7 +267,7 @@
      <enum>QFrame::Box</enum>
     </property>
     <property name="text">
-     <string>60%</string>
+     <string/>
     </property>
     <property name="scaledContents">
      <bool>false</bool>
@@ -328,7 +328,7 @@
      <bool>true</bool>
     </property>
     <property name="rowCount">
-     <number>2</number>
+     <number>0</number>
     </property>
     <attribute name="horizontalHeaderVisible">
      <bool>true</bool>
@@ -363,16 +363,6 @@
     <attribute name="verticalHeaderStretchLastSection">
      <bool>false</bool>
     </attribute>
-    <row>
-     <property name="text">
-      <string>1</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>2</string>
-     </property>
-    </row>
     <column>
      <property name="text">
       <string>Index</string>
@@ -403,66 +393,24 @@
       <string>Comment</string>
      </property>
     </column>
-    <item row="0" column="0">
-     <property name="text">
-      <string>1</string>
-     </property>
-    </item>
-    <item row="0" column="1">
-     <property name="text">
-      <string>MOTOR_REAR_LIMIT</string>
-     </property>
-    </item>
-    <item row="0" column="2">
-     <property name="text">
-      <string>uint16_t</string>
-     </property>
-    </item>
-    <item row="0" column="3">
-     <property name="text">
-      <string>0x7FF4</string>
-     </property>
-    </item>
-    <item row="0" column="4">
-     <property name="text">
-      <string>1</string>
-     </property>
-    </item>
-    <item row="0" column="5">
-     <property name="text">
-      <string>Rear limit of seat motor </string>
-     </property>
-    </item>
-    <item row="1" column="0">
-     <property name="text">
-      <string>2</string>
-     </property>
-    </item>
-    <item row="1" column="1">
-     <property name="text">
-      <string>MOTOR_FRONT_LIMIT</string>
-     </property>
-    </item>
-    <item row="1" column="2">
-     <property name="text">
-      <string>uint16_t</string>
-     </property>
-    </item>
-    <item row="1" column="3">
-     <property name="text">
-      <string>0x7FF6</string>
-     </property>
-    </item>
-    <item row="1" column="4">
-     <property name="text">
-      <string>65535</string>
-     </property>
-    </item>
-    <item row="1" column="5">
-     <property name="text">
-      <string>Front limit of seat motor </string>
-     </property>
-    </item>
+   </widget>
+   <widget class="QLabel" name="EepromName">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>450</y>
+      <width>261</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
