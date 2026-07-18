@@ -390,7 +390,7 @@
     </column>
     <column>
      <property name="text">
-      <string>Direction</string>
+      <string>Address</string>
      </property>
     </column>
     <column>
@@ -440,8 +440,7 @@
     <addaction name="actionSave"/>
     <addaction name="actionSave_as"/>
     <addaction name="separator"/>
-    <addaction name="actionImport"/>
-    <addaction name="actionExport"/>
+    <addaction name="actionOpenFile"/>
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
@@ -459,7 +458,6 @@
     </property>
     <addaction name="actionGenerate_files"/>
     <addaction name="actionGenerate_h_files"/>
-    <addaction name="actionGenerate_xml_files"/>
     <addaction name="actionGenerate_all"/>
    </widget>
    <widget class="QMenu" name="menuConfigure">
@@ -555,9 +553,9 @@
     <string>Import</string>
    </property>
   </action>
-  <action name="actionExport">
+  <action name="actionOpenFile">
    <property name="text">
-    <string>Export</string>
+    <string>Open</string>
    </property>
   </action>
   <action name="actionQuit_2">
