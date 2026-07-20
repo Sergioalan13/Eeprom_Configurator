@@ -46,6 +46,13 @@ class xmlGenerator:
             ET.SubElement(self.variable, "InitValue").text = str(variable.initValue)
             ET.SubElement(self.variable, "Comment").text = str(variable.comment)
 
+    def deteleAllVariables(self, project):
+        project.variables.clear()
+
+    def deteleAnElement(self, project, indexElement):
+        if indexElement >= 0:
+            project.variables.pop(indexElement)
+
     def generateProject(self, fileName, projectName):
         self.projectName.text = projectName
         self.treeName = ET.ElementTree(self.root)
