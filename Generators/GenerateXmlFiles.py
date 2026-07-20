@@ -50,8 +50,8 @@ class xmlGenerator:
         project.variables.clear()
 
     def deteleAnElement(self, project, indexElement):
-        project.variables.pop(indexElement)
-        print(project.variables)
+        if indexElement >= 0:
+            project.variables.pop(indexElement)
 
     def generateProject(self, fileName, projectName):
         self.projectName.text = projectName

@@ -87,9 +87,6 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        self.memoryUsed = 0
-        self.listOfVariables = []
-
         self.currentProject = Project()
         self.projectVariable = Variable()
         self.projectGenerator = xmlGenerator()
@@ -214,6 +211,11 @@ class MainWindow(QMainWindow):
     # -----------------------------------------------------------------------------
     def generateXmlProjectFile(self):
         self.memoryInBytes = EEPROM_SIZES[self.currentProject.memory.size]
+
+        self.memoryUsed = 0
+        for variable in self.currentProject.variables:
+            self.memoryUsed += variable.size
+
         self.currentProject.memory.used = int((self.memoryUsed * 100) / self.memoryInBytes)
         self.currentProject.memory.free = 100 - self.currentProject.memory.used
         self.ui.MemoryUsage_progressBar.setValue(int(self.currentProject.memory.used))
