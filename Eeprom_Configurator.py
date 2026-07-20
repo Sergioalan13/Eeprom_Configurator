@@ -24,6 +24,7 @@ EEPROM_SIZES = {
     "128 kBit": 16384,
     "256 kBit": 32768,
     "512 kBit": 65536,
+    "1024 kBit": 131072,
 }
 #VARIABLE_SIZES = {VariableType : Size}
 VARIABLE_SIZES = {
