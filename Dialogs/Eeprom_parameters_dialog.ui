@@ -122,37 +122,37 @@
    </item>
    <item>
     <property name="text">
-     <string>2 Kbit</string>
+     <string>2 kBit</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>4 Kbit</string>
+     <string>4 kBit</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>8 Kbit</string>
+     <string>8 kBit</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>16 Kbit</string>
+     <string>16 kBit</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>32 Kbit</string>
+     <string>32 kBit</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>64 Kbit</string>
+     <string>64 kBit</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>128 Kbit</string>
+     <string>128 kBit</string>
     </property>
    </item>
    <item>
@@ -162,7 +162,7 @@
    </item>
    <item>
     <property name="text">
-     <string>512 Kbit</string>
+     <string>512 kBit</string>
     </property>
    </item>
    <item>
