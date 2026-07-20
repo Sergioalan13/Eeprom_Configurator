@@ -10,6 +10,8 @@ from dataclasses import dataclass, field
 class Memory:
     name: str = ""
     size: int = 0
+    used: int = 0
+    free: int = 0 
 
 @dataclass
 class Variable:

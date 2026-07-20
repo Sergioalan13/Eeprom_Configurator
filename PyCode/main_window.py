@@ -19,7 +19,7 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
 from PySide6.QtWidgets import (QAbstractItemView, QAbstractScrollArea, QApplication, QFrame,
     QHeaderView, QLabel, QMainWindow, QMenu,
     QMenuBar, QProgressBar, QPushButton, QSizePolicy,
-    QStatusBar, QTableWidget, QTableWidgetItem, QWidget)
+    QTableWidget, QTableWidgetItem, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -83,6 +83,8 @@ class Ui_MainWindow(object):
         self.actionQuit_3.setObjectName(u"actionQuit_3")
         self.actionExit = QAction(MainWindow)
         self.actionExit.setObjectName(u"actionExit")
+        self.actionGenerate_xml_file = QAction(MainWindow)
+        self.actionGenerate_xml_file.setObjectName(u"actionGenerate_xml_file")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.centralwidget.setEnabled(True)
@@ -220,9 +222,6 @@ class Ui_MainWindow(object):
         self.menuValidate = QMenu(self.menubar)
         self.menuValidate.setObjectName(u"menuValidate")
         MainWindow.setMenuBar(self.menubar)
-        self.MemoryUsage_statusbar = QStatusBar(MainWindow)
-        self.MemoryUsage_statusbar.setObjectName(u"MemoryUsage_statusbar")
-        MainWindow.setStatusBar(self.MemoryUsage_statusbar)
 
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuEdit.menuAction())
@@ -231,8 +230,6 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuGenerate.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
         self.menuFile.addAction(self.actionNew)
-        self.menuFile.addAction(self.actionSave)
-        self.menuFile.addAction(self.actionSave_as)
         self.menuFile.addSeparator()
         self.menuFile.addAction(self.actionOpenFile)
         self.menuFile.addSeparator()
@@ -242,6 +239,7 @@ class Ui_MainWindow(object):
         self.menuEdit.addAction(self.actionDelete_all)
         self.menuGenerate.addAction(self.actionGenerate_files)
         self.menuGenerate.addAction(self.actionGenerate_h_files)
+        self.menuGenerate.addAction(self.actionGenerate_xml_file)
         self.menuGenerate.addAction(self.actionGenerate_all)
         self.menuConfigure.addAction(self.actionEeprom)
         self.menuHelp.addAction(self.actionUser_Manual)
@@ -278,6 +276,7 @@ class Ui_MainWindow(object):
         self.actionGenerate_all.setText(QCoreApplication.translate("MainWindow", u"Generate all", None))
         self.actionQuit_3.setText(QCoreApplication.translate("MainWindow", u"Exit", None))
         self.actionExit.setText(QCoreApplication.translate("MainWindow", u"Exit", None))
+        self.actionGenerate_xml_file.setText(QCoreApplication.translate("MainWindow", u"Generate xml file", None))
         self.EepromMemoryUsageText.setText(QCoreApplication.translate("MainWindow", u"Eeprom Memory Usage", None))
         self.AddElementpushButton.setText(QCoreApplication.translate("MainWindow", u"Add new element", None))
         self.DeleteElementpushButton.setText(QCoreApplication.translate("MainWindow", u"Delet an element", None))
