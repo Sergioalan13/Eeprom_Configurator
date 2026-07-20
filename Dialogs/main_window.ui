@@ -109,7 +109,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Delet an element</string>
+     <string>Delet element</string>
     </property>
    </widget>
    <widget class="QLabel" name="EepromMemoryConfigurationText">
@@ -568,7 +568,7 @@
   </action>
   <action name="actionDelete_an_element">
    <property name="text">
-    <string>Delete an element</string>
+    <string>Delete element</string>
    </property>
   </action>
   <action name="actionDelete_all">

@@ -117,6 +117,11 @@ class MainWindow(QMainWindow):
         self.ui.AddElementpushButton.clicked.connect(self.configVariableParameters)
         self.ui.actionGenerate_xml_file.triggered.connect(self.generateXmlProjectFile)
         self.ui.actionOpenFile.triggered.connect(self.loadXmlProjectFile)
+        self.ui.actionDelete_an_element.triggered.connect(self.deleteAnElement)
+        self.ui.actionDelete_all.triggered.connect(self.deleteAllVariables)
+        self.ui.DeleteElementpushButton.clicked.connect(self.deleteAnElement)
+        self.ui.DeleteAllpushButton.clicked.connect(self.deleteAllVariables)
+
 
     # -----------------------------------------------------------------------------
     #                    EEPROM PARAMETERS CONFIGURATION DIALOG
@@ -186,6 +191,23 @@ class MainWindow(QMainWindow):
 
             self.memoryUsed += int(self.projectVariable.size)
             self.projectGenerator.addVariable(self.currentProject, self.projectVariable)
+
+    # -----------------------------------------------------------------------------
+    #                       DELETE A VARIABLE
+    # -----------------------------------------------------------------------------
+    def deleteAnElement(self):
+        rowSelected = self.ui.VariablesTableWidget.currentRow()
+        if rowSelected >= 0:
+            self.ui.VariablesTableWidget.removeRow(rowSelected)
+        self.projectGenerator.deteleAnElement(self.currentProject, rowSelected)
+
+    # -----------------------------------------------------------------------------
+    #                       DELETE ALL VARIABLES
+    # -----------------------------------------------------------------------------
+    def deleteAllVariables(self):
+        self.projectGenerator.deteleAllVariables(self.currentProject)
+        self.ui.VariablesTableWidget.clearContents()
+        self.ui.VariablesTableWidget.setRowCount(0)
 
     # -----------------------------------------------------------------------------
     #                       GENERATE XML FILE PROJECT
