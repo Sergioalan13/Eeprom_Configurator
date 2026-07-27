@@ -42,7 +42,7 @@ VARIABLE_SIZES = {
 
 #TABLE_ELEMENTS_INDEX = {Column : Number}
 TABLE_ELEMENTS_INDEX = {
-    "Index": 0,
+    "Id": 0,
     "Name": 1,
     "Type": 2,
     "Elements" : 3,
@@ -55,6 +55,9 @@ TABLE_ELEMENTS_INDEX = {
 DEFAULT_VARIABLE_INIT_VALUE = 0
 
 ELEMENTS_OF_SIMPLE_VARIABLE = 1
+
+INIT_MEMORY_USED = 0
+INIT_MEMORY_FREE = 100
 
 # -----------------------------------------------------------------------------
 #                           DIALOGS
@@ -91,10 +94,12 @@ class MainWindow(QMainWindow):
         self.projectVariable = Variable()
         self.projectGenerator = xmlGenerator()
 
+        self.memoryUsed = 0
+
         # -----------------------------------------------------------------------------
         #                           TABLE COLUM SIZES CONFIGURATION
         # -----------------------------------------------------------------------------
-        self.ui.VariablesTableWidget.setColumnWidth(TABLE_ELEMENTS_INDEX["Index"], 50)   
+        self.ui.VariablesTableWidget.setColumnWidth(TABLE_ELEMENTS_INDEX["Id"], 50)   
         self.ui.VariablesTableWidget.setColumnWidth(TABLE_ELEMENTS_INDEX["Name"], 160)  
         self.ui.VariablesTableWidget.setColumnWidth(TABLE_ELEMENTS_INDEX["Type"], 80)
         self.ui.VariablesTableWidget.setColumnWidth(TABLE_ELEMENTS_INDEX["Elements"], 60)   
@@ -137,8 +142,8 @@ class MainWindow(QMainWindow):
 
             self.ui.EepromName.setText('[' + self.currentProject.memory.name + ']')
             self.ui.EepromSize.setText(self.currentProject.memory.size)
-            self.ui.EepromSize_Used.setText(str(self.initMemoryUsed) + '%')
-            self.ui.EepromSize_Free.setText(str(self.initMemoryFree) + '%')
+            self.ui.EepromSize_Used.setText(str(INIT_MEMORY_USED) + '%')
+            self.ui.EepromSize_Free.setText(str(INIT_MEMORY_FREE) + '%')
 
             self.currentProject.memory.used = self.initMemoryUsed
             self.currentProject.memory.free = self.initMemoryFree
@@ -151,19 +156,12 @@ class MainWindow(QMainWindow):
 
         if dialog.exec():
             self.projectVariable = Variable()
-
             self.projectVariable.type = dialog.ui.VariableTypeComboBox.currentText()
-
-            self.isArray = dialog.ui.ArrayCheckBox.isChecked()
-            if (False == self.isArray): 
-                self.projectVariable.elements = ELEMENTS_OF_SIMPLE_VARIABLE
-                self.projectVariable.size = VARIABLE_SIZES[self.projectVariable.type]
-            else: 
-                self.projectVariable.elements = int(dialog.ui.VariableElements.text())
-                self.projectVariable.size = VARIABLE_SIZES[self.projectVariable.type] * self.projectVariable.elements
+            self.projectVariable.elements = ELEMENTS_OF_SIMPLE_VARIABLE
+            self.projectVariable.size = VARIABLE_SIZES[self.projectVariable.type]
  
-            self.isWriteVariable = dialog.ui.WriteVariableCheckBox.isChecked()
-            if (False == self.isWriteVariable): 
+            self.writeInitValue = dialog.ui.WriteVariableCheckBox.isChecked()
+            if (False == self.writeInitValue): 
                 self.projectVariable.initValue = DEFAULT_VARIABLE_INIT_VALUE
             else: 
                 self.projectVariable.initValue = dialog.ui.VariableInitValue.text()
@@ -172,19 +170,19 @@ class MainWindow(QMainWindow):
             #                   DISPLAY VARIABLES CONFIGURED IN THE TABLE
             # -----------------------------------------------------------------------------
             self.projectVariable.name = dialog.ui.VariableName.text()
-            self.projectVariable.address = dialog.ui.VariableDirection.text()
+            self.projectVariable.address = dialog.ui.VariableAddress.text()
             self.projectVariable.comment = dialog.ui.VariableComment.text()
 
-            self.index = self.ui.VariablesTableWidget.rowCount()
-            self.ui.VariablesTableWidget.insertRow(self.index)
-            self.ui.VariablesTableWidget.setItem(self.index, TABLE_ELEMENTS_INDEX["Index"], QTableWidgetItem(str(self.index)))
-            self.ui.VariablesTableWidget.setItem(self.index, TABLE_ELEMENTS_INDEX["Name"], QTableWidgetItem(self.projectVariable.name))
-            self.ui.VariablesTableWidget.setItem(self.index, TABLE_ELEMENTS_INDEX["Type"], QTableWidgetItem(self.projectVariable.type))
-            self.ui.VariablesTableWidget.setItem(self.index, TABLE_ELEMENTS_INDEX["Elements"], QTableWidgetItem(str(self.projectVariable.elements)))
-            self.ui.VariablesTableWidget.setItem(self.index, TABLE_ELEMENTS_INDEX["Size"], QTableWidgetItem(str(self.projectVariable.size)))
-            self.ui.VariablesTableWidget.setItem(self.index, TABLE_ELEMENTS_INDEX["Address"], QTableWidgetItem(self.projectVariable.address))
-            self.ui.VariablesTableWidget.setItem(self.index, TABLE_ELEMENTS_INDEX["Init Value"], QTableWidgetItem(str(self.projectVariable.initValue)))
-            self.ui.VariablesTableWidget.setItem(self.index, TABLE_ELEMENTS_INDEX["Comment"], QTableWidgetItem(self.projectVariable.comment))
+            self.id = self.ui.VariablesTableWidget.rowCount()
+            self.ui.VariablesTableWidget.insertRow(self.id)
+            self.ui.VariablesTableWidget.setItem(self.id, TABLE_ELEMENTS_INDEX["Id"], QTableWidgetItem(str(self.id)))
+            self.ui.VariablesTableWidget.setItem(self.id, TABLE_ELEMENTS_INDEX["Name"], QTableWidgetItem(self.projectVariable.name))
+            self.ui.VariablesTableWidget.setItem(self.id, TABLE_ELEMENTS_INDEX["Type"], QTableWidgetItem(self.projectVariable.type))
+            self.ui.VariablesTableWidget.setItem(self.id, TABLE_ELEMENTS_INDEX["Elements"], QTableWidgetItem(str(self.projectVariable.elements)))
+            self.ui.VariablesTableWidget.setItem(self.id, TABLE_ELEMENTS_INDEX["Size"], QTableWidgetItem(str(self.projectVariable.size)))
+            self.ui.VariablesTableWidget.setItem(self.id, TABLE_ELEMENTS_INDEX["Address"], QTableWidgetItem(self.projectVariable.address))
+            self.ui.VariablesTableWidget.setItem(self.id, TABLE_ELEMENTS_INDEX["Init Value"], QTableWidgetItem(str(self.projectVariable.initValue)))
+            self.ui.VariablesTableWidget.setItem(self.id, TABLE_ELEMENTS_INDEX["Comment"], QTableWidgetItem(self.projectVariable.comment))
 
             self.memoryUsed += int(self.projectVariable.size)
             self.projectGenerator.addVariable(self.currentProject, self.projectVariable)
@@ -233,7 +231,6 @@ class MainWindow(QMainWindow):
     # -----------------------------------------------------------------------------
     def loadXmlProjectFile(self):
         self.currentProject = self.projectGenerator.loadProject("Eeprom_Configurator.xml")
-
         self.memoryUsed = 0
         self.ui.VariablesTableWidget.setRowCount(0)
 
@@ -247,16 +244,16 @@ class MainWindow(QMainWindow):
 
             self.memoryUsed += variable.size
 
-            self.index = self.ui.VariablesTableWidget.rowCount()
-            self.ui.VariablesTableWidget.insertRow(self.index)
-            self.ui.VariablesTableWidget.setItem(self.index, TABLE_ELEMENTS_INDEX["Index"], QTableWidgetItem(str(self.index)))
-            self.ui.VariablesTableWidget.setItem(self.index, TABLE_ELEMENTS_INDEX["Name"], QTableWidgetItem(variable.name))
-            self.ui.VariablesTableWidget.setItem(self.index, TABLE_ELEMENTS_INDEX["Type"], QTableWidgetItem(variable.type))
-            self.ui.VariablesTableWidget.setItem(self.index, TABLE_ELEMENTS_INDEX["Elements"], QTableWidgetItem(str(variable.elements)))
-            self.ui.VariablesTableWidget.setItem(self.index, TABLE_ELEMENTS_INDEX["Size"], QTableWidgetItem(str(variable.size)))
-            self.ui.VariablesTableWidget.setItem(self.index, TABLE_ELEMENTS_INDEX["Address"], QTableWidgetItem(variable.address))
-            self.ui.VariablesTableWidget.setItem(self.index, TABLE_ELEMENTS_INDEX["Init Value"], QTableWidgetItem(str(variable.initValue)))
-            self.ui.VariablesTableWidget.setItem(self.index, TABLE_ELEMENTS_INDEX["Comment"], QTableWidgetItem(variable.comment))
+            self.id = self.ui.VariablesTableWidget.rowCount()
+            self.ui.VariablesTableWidget.insertRow(self.id)
+            self.ui.VariablesTableWidget.setItem(self.id, TABLE_ELEMENTS_INDEX["Id"], QTableWidgetItem(str(self.id)))
+            self.ui.VariablesTableWidget.setItem(self.id, TABLE_ELEMENTS_INDEX["Name"], QTableWidgetItem(variable.name))
+            self.ui.VariablesTableWidget.setItem(self.id, TABLE_ELEMENTS_INDEX["Type"], QTableWidgetItem(variable.type))
+            self.ui.VariablesTableWidget.setItem(self.id, TABLE_ELEMENTS_INDEX["Elements"], QTableWidgetItem(str(variable.elements)))
+            self.ui.VariablesTableWidget.setItem(self.id, TABLE_ELEMENTS_INDEX["Size"], QTableWidgetItem(str(variable.size)))
+            self.ui.VariablesTableWidget.setItem(self.id, TABLE_ELEMENTS_INDEX["Address"], QTableWidgetItem(variable.address))
+            self.ui.VariablesTableWidget.setItem(self.id, TABLE_ELEMENTS_INDEX["Init Value"], QTableWidgetItem(str(variable.initValue)))
+            self.ui.VariablesTableWidget.setItem(self.id, TABLE_ELEMENTS_INDEX["Comment"], QTableWidgetItem(variable.comment))
 
 if __name__ == "__main__":
     app = QApplication([])

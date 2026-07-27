@@ -289,7 +289,7 @@ class Ui_MainWindow(object):
         self.EepromSize_Used.setText("")
         self.EepromSize_Free.setText("")
         ___qtablewidgetitem = self.VariablesTableWidget.horizontalHeaderItem(0)
-        ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"Index", None))
+        ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"Id", None))
         ___qtablewidgetitem1 = self.VariablesTableWidget.horizontalHeaderItem(1)
         ___qtablewidgetitem1.setText(QCoreApplication.translate("MainWindow", u"Name", None))
         ___qtablewidgetitem2 = self.VariablesTableWidget.horizontalHeaderItem(2)
