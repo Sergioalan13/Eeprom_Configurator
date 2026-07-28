@@ -2,7 +2,7 @@
 #                           IMPORTS
 # -----------------------------------------------------------------------------
 import xml.etree.ElementTree as ET
-from PyCode.projectDataClasses import Variable, Memory, Project
+from PyCode.Project_data_classes import Variable, Memory, Project
 
 # -----------------------------------------------------------------------------
 #                           XML GENERATOR CLASS
@@ -18,6 +18,10 @@ class xmlGenerator:
     def configMemory(self, memory):
         ET.SubElement(self.memory, "Name").text = str(memory.name)
         ET.SubElement(self.memory, "Size").text = str(memory.size)
+        ET.SubElement(self.memory, "StartAddress").text = str(memory.startAddress)
+        ET.SubElement(self.memory, "NoPages").text = str(memory.noPages)
+        ET.SubElement(self.memory, "PageSize").text = str(memory.pageSize)
+        ET.SubElement(self.memory, "I2cAddress").text = str(memory.i2cAddress)
         ET.SubElement(self.memory, "Used").text = str(memory.used)
         ET.SubElement(self.memory, "Free").text = str(memory.free)
 
@@ -25,6 +29,10 @@ class xmlGenerator:
         memory = self.root.find("Memory")
         memory.find("Name").text = str(memoryUpdated.name)
         memory.find("Size").text = str(memoryUpdated.size)
+        memory.find("StartAddress").text = str(memoryUpdated.startAddress)
+        memory.find("NoPages").text = str(memoryUpdated.noPages)
+        memory.find("PageSize").text = str(memoryUpdated.pageSize)
+        memory.find("I2cAddress").text = str(memoryUpdated.i2cAddress)
         memory.find("Used").text = str(memoryUpdated.used)
         memory.find("Free").text = str(memoryUpdated.free)
 
@@ -70,6 +78,10 @@ class xmlGenerator:
         memory = self.root.find("Memory")
         projectDataClass.memory.name = memory.find("Name").text
         projectDataClass.memory.size = memory.find("Size").text
+        projectDataClass.memory.startAddress = memory.find("StartAddress").text
+        projectDataClass.memory.noPages = memory.find("NoPages").text
+        projectDataClass.memory.pageSize = memory.find("PageSize").text
+        projectDataClass.memory.i2cAddress = memory.find("I2cAddress").text
         projectDataClass.memory.used = memory.find("Used").text
         projectDataClass.memory.free = memory.find("Free").text
 
