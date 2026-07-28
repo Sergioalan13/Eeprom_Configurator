@@ -4,7 +4,7 @@
 from PySide6.QtWidgets import QApplication, QMainWindow, QDialog, QTableWidgetItem
 from PySide6.QtGui import QIntValidator
 from PyCode.main_window import Ui_MainWindow
-from PyCode.projectDataClasses import Project, Variable
+from PyCode.Project_data_classes import Project, Variable
 from Generators.GenerateXmlFiles import xmlGenerator
 from PyCode.Eeprom_parameters_dialog import Ui_Dialog as Eeprom_parameters_dialog
 from PyCode.Variable_configuration_dialog import Ui_Dialog as Variable_configuration_dialog
@@ -129,14 +129,17 @@ class MainWindow(QMainWindow):
     #                    EEPROM PARAMETERS CONFIGURATION DIALOG
     # -----------------------------------------------------------------------------
     def configEepromParameters(self):
-        self.initMemoryUsed = 0
-        self.initMemoryFree = 100
-
         dialog = EepromParametersDialog()
 
         if dialog.exec():
             self.currentProject.memory.name = dialog.ui.EepromNameLineTextEdit.text()
             self.currentProject.memory.size = dialog.ui.EepromSizeComboBox.currentText()
+            self.currentProject.memory.startAddress = dialog.ui.EepromStartAddressLineTextEdit.text()
+            self.currentProject.memory.noPages = dialog.ui.EepromNoPagesLineTextEdit.text()
+            self.currentProject.memory.pageSize = dialog.ui.EepromPageSizeLineTextEdit.text()
+            self.currentProject.memory.i2cAddress = dialog.ui.EepromI2cAddressLineTextEdit.text()
+            self.currentProject.memory.used = INIT_MEMORY_USED
+            self.currentProject.memory.free = INIT_MEMORY_FREE
 
             self.projectGenerator.configMemory(self.currentProject.memory)
 
@@ -145,8 +148,6 @@ class MainWindow(QMainWindow):
             self.ui.EepromSize_Used.setText(str(INIT_MEMORY_USED) + '%')
             self.ui.EepromSize_Free.setText(str(INIT_MEMORY_FREE) + '%')
 
-            self.currentProject.memory.used = self.initMemoryUsed
-            self.currentProject.memory.free = self.initMemoryFree
 
     # -----------------------------------------------------------------------------
     #                       VARIABLES PARAMETERS CONFIGURATION DIALOG
