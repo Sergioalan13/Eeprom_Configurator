@@ -16,26 +16,32 @@ from PyCode.Variable_configuration_dialog import Ui_Dialog as Variable_configura
 EEPROM_SIZES = {
     "1 kBit": 128,
     "2 kBit": 256,
-    "4 kBit": 512,
-    "8 kBit": 1024,
-    "16 kBit": 2048,
     "32 kBit": 4096,
     "64 kBit": 8192,
     "128 kBit": 16384,
     "256 kBit": 32768,
     "512 kBit": 65536,
-    "1024 kBit": 131072,
 }
-#VARIABLE_SIZES = {VariableType : Size}
+
+#EEPROM_ADDRESS_SIZES = {"Kbit": Bytes}
+EEPROM_ADDRESS_SIZES = {
+    "1 kBit": 1,
+    "2 kBit": 1,
+    "32 kBit": 2,
+    "64 kBit": 2,
+    "128 kBit": 2,
+    "256 kBit": 2,
+    "512 kBit": 2,
+}
+
+#VARIABLE_SIZES = {VariableType : SizeInBytes}
 VARIABLE_SIZES = {
     "uint8_t": 1,
     "uint16_t": 2,
     "uint32_t": 4,
-    "uint64_t": 8,
     "int8_t": 1,
     "int16_t": 2,
     "int32_t": 4,
-    "int64_t": 8,
     "float": 4,
     "char": 1,
 }
@@ -135,6 +141,7 @@ class MainWindow(QMainWindow):
             self.currentProject.memory.name = dialog.ui.EepromNameLineTextEdit.text()
             self.currentProject.memory.size = dialog.ui.EepromSizeComboBox.currentText()
             self.currentProject.memory.startAddress = dialog.ui.EepromStartAddressLineTextEdit.text()
+            self.currentProject.memory.addressSize = EEPROM_ADDRESS_SIZES[self.currentProject.memory.size]
             self.currentProject.memory.noPages = dialog.ui.EepromNoPagesLineTextEdit.text()
             self.currentProject.memory.pageSize = dialog.ui.EepromPageSizeLineTextEdit.text()
             self.currentProject.memory.i2cAddress = dialog.ui.EepromI2cAddressLineTextEdit.text()
@@ -147,6 +154,8 @@ class MainWindow(QMainWindow):
             self.ui.EepromSize.setText(self.currentProject.memory.size)
             self.ui.EepromSize_Used.setText(str(INIT_MEMORY_USED) + '%')
             self.ui.EepromSize_Free.setText(str(INIT_MEMORY_FREE) + '%')
+
+
 
 
     # -----------------------------------------------------------------------------
@@ -175,6 +184,7 @@ class MainWindow(QMainWindow):
             self.projectVariable.comment = dialog.ui.VariableComment.text()
 
             self.id = self.ui.VariablesTableWidget.rowCount()
+            self.projectVariable.id = self.id
             self.ui.VariablesTableWidget.insertRow(self.id)
             self.ui.VariablesTableWidget.setItem(self.id, TABLE_ELEMENTS_INDEX["Id"], QTableWidgetItem(str(self.id)))
             self.ui.VariablesTableWidget.setItem(self.id, TABLE_ELEMENTS_INDEX["Name"], QTableWidgetItem(self.projectVariable.name))

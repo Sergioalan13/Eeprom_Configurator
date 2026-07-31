@@ -127,21 +127,6 @@
    </item>
    <item>
     <property name="text">
-     <string>4 kBit</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>8 kBit</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>16 kBit</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
      <string>32 kBit</string>
     </property>
    </item>
@@ -163,11 +148,6 @@
    <item>
     <property name="text">
      <string>512 kBit</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>1024 kBit</string>
     </property>
    </item>
   </widget>

@@ -19,6 +19,7 @@ class xmlGenerator:
         ET.SubElement(self.memory, "Name").text = str(memory.name)
         ET.SubElement(self.memory, "Size").text = str(memory.size)
         ET.SubElement(self.memory, "StartAddress").text = str(memory.startAddress)
+        ET.SubElement(self.memory, "AddressSize").text = str(memory.addressSize)
         ET.SubElement(self.memory, "NoPages").text = str(memory.noPages)
         ET.SubElement(self.memory, "PageSize").text = str(memory.pageSize)
         ET.SubElement(self.memory, "I2cAddress").text = str(memory.i2cAddress)
@@ -30,6 +31,7 @@ class xmlGenerator:
         memory.find("Name").text = str(memoryUpdated.name)
         memory.find("Size").text = str(memoryUpdated.size)
         memory.find("StartAddress").text = str(memoryUpdated.startAddress)
+        memory.find("AddressSize").text = str(memoryUpdated.addressSize)
         memory.find("NoPages").text = str(memoryUpdated.noPages)
         memory.find("PageSize").text = str(memoryUpdated.pageSize)
         memory.find("I2cAddress").text = str(memoryUpdated.i2cAddress)
@@ -46,6 +48,7 @@ class xmlGenerator:
         for variable in listOfVariables:
             self.variable = ET.SubElement(self.eepromVariables, "Variable")
 
+            ET.SubElement(self.variable, "Id").text = str(variable.id)
             ET.SubElement(self.variable, "Name").text = str(variable.name)
             ET.SubElement(self.variable, "Type").text = str(variable.type)
             ET.SubElement(self.variable, "Elements").text = str(variable.elements)
@@ -87,7 +90,8 @@ class xmlGenerator:
 
         for VariableStructures in self.root.find("VariableStructures").findall("Variable"):
             variableDataClass = Variable()
-            
+
+            variableDataClass.id = VariableStructures.find("Id").text
             variableDataClass.name = VariableStructures.find("Name").text
             variableDataClass.type = VariableStructures.find("Type").text
             variableDataClass.elements = int(VariableStructures.find("Elements").text)

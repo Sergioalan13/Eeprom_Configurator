@@ -168,11 +168,6 @@
    </item>
    <item>
     <property name="text">
-     <string>uint64_t</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
      <string>int8_t</string>
     </property>
    </item>
@@ -184,11 +179,6 @@
    <item>
     <property name="text">
      <string>int32_t</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>int64_t</string>
     </property>
    </item>
    <item>
