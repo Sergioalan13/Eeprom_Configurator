@@ -11,6 +11,7 @@ class Memory:
     name: str = ""
     size: int = 0
     startAddress: int = 0
+    addressSize: int = 0
     noPages: int = 0
     pageSize: int = 0
     i2cAddress: int = 0
@@ -19,6 +20,7 @@ class Memory:
 
 @dataclass
 class Variable:
+    id: int = 0
     name: str = ""
     type: str = ""
     elements: int = 1
