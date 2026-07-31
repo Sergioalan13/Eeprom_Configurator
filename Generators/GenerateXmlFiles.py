@@ -82,6 +82,7 @@ class xmlGenerator:
         projectDataClass.memory.name = memory.find("Name").text
         projectDataClass.memory.size = memory.find("Size").text
         projectDataClass.memory.startAddress = memory.find("StartAddress").text
+        projectDataClass.memory.addressSize = memory.find("AddressSize").text
         projectDataClass.memory.noPages = memory.find("NoPages").text
         projectDataClass.memory.pageSize = memory.find("PageSize").text
         projectDataClass.memory.i2cAddress = memory.find("I2cAddress").text
