@@ -120,16 +120,26 @@ class MainWindow(QMainWindow):
         # Configure eeprom parameters button
         self.ui.actionEeprom.triggered.connect(self.configEepromParameters)
 
-         # Configure add an element button
+        # Configure add an element button
         self.ui.actionAdd_new_element.triggered.connect(self.configVariableParameters)
         self.ui.AddElementpushButton.clicked.connect(self.configVariableParameters)
+
+        # Configure generate xml file button
         self.ui.actionGenerate_xml_file.triggered.connect(self.generateXmlProjectFile)
+
+        # Configure open xml file button
         self.ui.actionOpenFile.triggered.connect(self.loadXmlProjectFile)
+
+        # Configure delete element button
         self.ui.actionDelete_an_element.triggered.connect(self.deleteAnElement)
-        self.ui.actionDelete_all.triggered.connect(self.deleteAllVariables)
         self.ui.DeleteElementpushButton.clicked.connect(self.deleteAnElement)
+
+        # Configure delete all elements button
+        self.ui.actionDelete_all.triggered.connect(self.deleteAllVariables)
         self.ui.DeleteAllpushButton.clicked.connect(self.deleteAllVariables)
 
+        # Configure exit app button
+        self.ui.actionExit.triggered.connect(self.exitApp)
 
     # -----------------------------------------------------------------------------
     #                    EEPROM PARAMETERS CONFIGURATION DIALOG
@@ -265,6 +275,9 @@ class MainWindow(QMainWindow):
             self.ui.VariablesTableWidget.setItem(self.id, TABLE_ELEMENTS_INDEX["Address"], QTableWidgetItem(variable.address))
             self.ui.VariablesTableWidget.setItem(self.id, TABLE_ELEMENTS_INDEX["Init Value"], QTableWidgetItem(str(variable.initValue)))
             self.ui.VariablesTableWidget.setItem(self.id, TABLE_ELEMENTS_INDEX["Comment"], QTableWidgetItem(variable.comment))
+
+    def exitApp(self):
+        self.close()
 
 if __name__ == "__main__":
     app = QApplication([])
