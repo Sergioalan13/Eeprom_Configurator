@@ -365,7 +365,7 @@
     </attribute>
     <column>
      <property name="text">
-      <string>Index</string>
+      <string>Id</string>
      </property>
     </column>
     <column>
