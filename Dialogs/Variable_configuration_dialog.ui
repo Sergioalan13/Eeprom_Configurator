@@ -186,11 +186,6 @@
      <string>float</string>
     </property>
    </item>
-   <item>
-    <property name="text">
-     <string>char</string>
-    </property>
-   </item>
   </widget>
   <widget class="QLineEdit" name="VariableName">
    <property name="geometry">

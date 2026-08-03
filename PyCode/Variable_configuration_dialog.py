@@ -65,7 +65,6 @@ class Ui_Dialog(object):
         self.VariableTypeComboBox.addItem("")
         self.VariableTypeComboBox.addItem("")
         self.VariableTypeComboBox.addItem("")
-        self.VariableTypeComboBox.addItem("")
         self.VariableTypeComboBox.setObjectName(u"VariableTypeComboBox")
         self.VariableTypeComboBox.setGeometry(QRect(120, 100, 241, 31))
         self.VariableTypeComboBox.setFont(font1)
@@ -134,7 +133,6 @@ class Ui_Dialog(object):
         self.VariableTypeComboBox.setItemText(4, QCoreApplication.translate("Dialog", u"int16_t", None))
         self.VariableTypeComboBox.setItemText(5, QCoreApplication.translate("Dialog", u"int32_t", None))
         self.VariableTypeComboBox.setItemText(6, QCoreApplication.translate("Dialog", u"float", None))
-        self.VariableTypeComboBox.setItemText(7, QCoreApplication.translate("Dialog", u"char", None))
 
         self.WriteVariableCheckBox.setText(QCoreApplication.translate("Dialog", u"Write variable", None))
     # retranslateUi
