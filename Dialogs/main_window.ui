@@ -454,10 +454,8 @@
     <property name="title">
      <string>Generate</string>
     </property>
-    <addaction name="actionGenerate_files"/>
-    <addaction name="actionGenerate_h_files"/>
     <addaction name="actionGenerate_xml_file"/>
-    <addaction name="actionGenerate_all"/>
+    <addaction name="actionGenerate_source_header_files"/>
    </widget>
    <widget class="QMenu" name="menuConfigure">
     <property name="title">
@@ -511,9 +509,9 @@
     <bool>false</bool>
    </property>
   </action>
-  <action name="actionGenerate_files">
+  <action name="actionGenerate_source_header_files">
    <property name="text">
-    <string>Generate .c files</string>
+    <string>Generate source/header files</string>
    </property>
   </action>
   <action name="actionUser_">
@@ -608,7 +606,7 @@
   </action>
   <action name="actionGenerate_xml_file">
    <property name="text">
-    <string>Generate xml file</string>
+    <string>Generate xml project file</string>
    </property>
   </action>
  </widget>

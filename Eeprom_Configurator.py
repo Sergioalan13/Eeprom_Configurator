@@ -7,8 +7,8 @@ from PyCode.main_window import Ui_MainWindow
 from PyCode.Project_data_classes import Project, Variable
 from PyCode.Project_validation import validation, VALIDATION_PROJECT_STATUS
 from Generators.GenerateXmlFiles import xmlGenerator
-from PyCode.Eeprom_parameters_dialog import Ui_Dialog as Eeprom_parameters_dialog
-from PyCode.Variable_configuration_dialog import Ui_Dialog as Variable_configuration_dialog
+from PyCode.Eeprom_parameters_dialog import Ui_EepromParameters
+from PyCode.Variable_configuration_dialog import Ui_VariableConfiguration
 from PySide6.QtWidgets import QMessageBox
 
 # -----------------------------------------------------------------------------
@@ -74,14 +74,14 @@ class EepromParametersDialog(QDialog):
     def __init__(self):
         super().__init__()
 
-        self.ui = Eeprom_parameters_dialog()
+        self.ui = Ui_EepromParameters()
         self.ui.setupUi(self)
 
 class VariableParametersDialog(QDialog):
     def __init__(self):
         super().__init__()
 
-        self.ui = Variable_configuration_dialog()
+        self.ui = Ui_VariableConfiguration()
         self.ui.setupUi(self)
 
 
@@ -103,6 +103,7 @@ class MainWindow(QMainWindow):
         self.projectGenerator = xmlGenerator()
         self.projectValidator = validation()
 
+        self.memoryInBytes = 0
         self.memoryUsed = 0
 
         # -----------------------------------------------------------------------------
@@ -197,7 +198,7 @@ class MainWindow(QMainWindow):
             # -----------------------------------------------------------------------------
             self.projectVariable.name = dialog.ui.VariableName.text()
             self.projectVariable.address = dialog.ui.VariableAddress.text()
-            self.projectVariable.comment = dialog.ui.VariableComment.text()
+            self.projectVariable.comment = dialog.ui.VariableComment.toPlainText()
 
             self.id = self.ui.VariablesTableWidget.rowCount()
             self.projectVariable.id = self.id
