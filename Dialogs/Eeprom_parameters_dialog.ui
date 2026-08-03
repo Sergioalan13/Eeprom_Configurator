@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>EepromParameters</class>
+ <widget class="QDialog" name="EepromParameters">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -94,8 +94,16 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
    <property name="inputMethodHints">
     <set>Qt::ImhDigitsOnly|Qt::ImhPreferNumbers</set>
+   </property>
+   <property name="placeholderText">
+    <string>eeprom name</string>
    </property>
   </widget>
   <widget class="QComboBox" name="EepromSizeComboBox">
@@ -214,6 +222,14 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="placeholderText">
+    <string>hex</string>
+   </property>
   </widget>
   <widget class="QLineEdit" name="EepromNoPagesLineTextEdit">
    <property name="geometry">
@@ -224,6 +240,14 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="placeholderText">
+    <string>dec</string>
+   </property>
   </widget>
   <widget class="QLineEdit" name="EepromPageSizeLineTextEdit">
    <property name="geometry">
@@ -233,6 +257,14 @@
      <width>171</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="placeholderText">
+    <string>dec</string>
    </property>
   </widget>
   <widget class="QLabel" name="EepromI2cAddressText">
@@ -262,6 +294,14 @@
      <height>31</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="placeholderText">
+    <string>hex</string>
+   </property>
   </widget>
  </widget>
  <resources/>
@@ -269,7 +309,7 @@
   <connection>
    <sender>AcceptRejectButtonBox</sender>
    <signal>accepted()</signal>
-   <receiver>Dialog</receiver>
+   <receiver>EepromParameters</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -285,7 +325,7 @@
   <connection>
    <sender>AcceptRejectButtonBox</sender>
    <signal>rejected()</signal>
-   <receiver>Dialog</receiver>
+   <receiver>EepromParameters</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

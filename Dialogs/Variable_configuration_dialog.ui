@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>VariableConfiguration</class>
+ <widget class="QDialog" name="VariableConfiguration">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -201,6 +201,9 @@
      <pointsize>12</pointsize>
     </font>
    </property>
+   <property name="placeholderText">
+    <string>variable name</string>
+   </property>
   </widget>
   <widget class="QLineEdit" name="VariableAddress">
    <property name="geometry">
@@ -215,6 +218,9 @@
     <font>
      <pointsize>12</pointsize>
     </font>
+   </property>
+   <property name="placeholderText">
+    <string>hex</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="VariableInitValue">
@@ -240,49 +246,8 @@
    <property name="readOnly">
     <bool>false</bool>
    </property>
-   <property name="clearButtonEnabled">
-    <bool>false</bool>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="VariableComment">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>220</y>
-     <width>241</width>
-     <height>111</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>12</pointsize>
-     <stylestrategy>PreferDefault</stylestrategy>
-     <kerning>true</kerning>
-    </font>
-   </property>
-   <property name="layoutDirection">
-    <enum>Qt::LeftToRight</enum>
-   </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
-   </property>
-   <property name="inputMethodHints">
-    <set>Qt::ImhMultiLine</set>
-   </property>
-   <property name="frame">
-    <bool>true</bool>
-   </property>
-   <property name="echoMode">
-    <enum>QLineEdit::Normal</enum>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-   </property>
-   <property name="dragEnabled">
-    <bool>false</bool>
-   </property>
    <property name="placeholderText">
-    <string notr="true"/>
+    <string>dec</string>
    </property>
    <property name="clearButtonEnabled">
     <bool>false</bool>
@@ -312,13 +277,31 @@
     <bool>false</bool>
    </property>
   </widget>
+  <widget class="QTextEdit" name="VariableComment">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>220</y>
+     <width>241</width>
+     <height>151</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="placeholderText">
+    <string>optional</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections>
   <connection>
    <sender>VariableAcceptRejectButton</sender>
    <signal>accepted()</signal>
-   <receiver>Dialog</receiver>
+   <receiver>VariableConfiguration</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -334,7 +317,7 @@
   <connection>
    <sender>VariableAcceptRejectButton</sender>
    <signal>rejected()</signal>
-   <receiver>Dialog</receiver>
+   <receiver>VariableConfiguration</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
