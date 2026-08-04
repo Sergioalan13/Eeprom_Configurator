@@ -5,9 +5,11 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QDialog, QTableWidgetIt
 from PySide6.QtGui import QIntValidator
 from PyCode.main_window import Ui_MainWindow
 from PyCode.Project_data_classes import Project, Variable
+from PyCode.Project_validation import validation, VALIDATION_PROJECT_STATUS
 from Generators.GenerateXmlFiles import xmlGenerator
-from PyCode.Eeprom_parameters_dialog import Ui_Dialog as Eeprom_parameters_dialog
-from PyCode.Variable_configuration_dialog import Ui_Dialog as Variable_configuration_dialog
+from PyCode.Eeprom_parameters_dialog import Ui_EepromParameters
+from PyCode.Variable_configuration_dialog import Ui_VariableConfiguration
+from PySide6.QtWidgets import QMessageBox
 
 # -----------------------------------------------------------------------------
 #                                VARIABLES
@@ -72,14 +74,14 @@ class EepromParametersDialog(QDialog):
     def __init__(self):
         super().__init__()
 
-        self.ui = Eeprom_parameters_dialog()
+        self.ui = Ui_EepromParameters()
         self.ui.setupUi(self)
 
 class VariableParametersDialog(QDialog):
     def __init__(self):
         super().__init__()
 
-        self.ui = Variable_configuration_dialog()
+        self.ui = Ui_VariableConfiguration()
         self.ui.setupUi(self)
 
 
@@ -99,7 +101,9 @@ class MainWindow(QMainWindow):
         self.currentProject = Project()
         self.projectVariable = Variable()
         self.projectGenerator = xmlGenerator()
+        self.projectValidator = validation()
 
+        self.memoryInBytes = 0
         self.memoryUsed = 0
 
         # -----------------------------------------------------------------------------
@@ -141,6 +145,9 @@ class MainWindow(QMainWindow):
         # Configure exit app button
         self.ui.actionExit.triggered.connect(self.exitApp)
 
+        # Configure validate project button
+        self.ui.actionProject.triggered.connect(self.validateProject)
+
     # -----------------------------------------------------------------------------
     #                    EEPROM PARAMETERS CONFIGURATION DIALOG
     # -----------------------------------------------------------------------------
@@ -158,14 +165,14 @@ class MainWindow(QMainWindow):
             self.currentProject.memory.used = INIT_MEMORY_USED
             self.currentProject.memory.free = INIT_MEMORY_FREE
 
+            self.memoryInBytes = EEPROM_SIZES[self.currentProject.memory.size]
+
             self.projectGenerator.configMemory(self.currentProject.memory)
 
             self.ui.EepromName.setText('[' + self.currentProject.memory.name + ']')
             self.ui.EepromSize.setText(self.currentProject.memory.size)
             self.ui.EepromSize_Used.setText(str(INIT_MEMORY_USED) + '%')
             self.ui.EepromSize_Free.setText(str(INIT_MEMORY_FREE) + '%')
-
-
 
 
     # -----------------------------------------------------------------------------
@@ -191,7 +198,7 @@ class MainWindow(QMainWindow):
             # -----------------------------------------------------------------------------
             self.projectVariable.name = dialog.ui.VariableName.text()
             self.projectVariable.address = dialog.ui.VariableAddress.text()
-            self.projectVariable.comment = dialog.ui.VariableComment.text()
+            self.projectVariable.comment = dialog.ui.VariableComment.toPlainText()
 
             self.id = self.ui.VariablesTableWidget.rowCount()
             self.projectVariable.id = self.id
@@ -226,26 +233,61 @@ class MainWindow(QMainWindow):
         self.ui.VariablesTableWidget.setRowCount(0)
 
     # -----------------------------------------------------------------------------
+    #                       VALIDATE PROJECT
+    # -----------------------------------------------------------------------------
+    def validateProject(self):
+        errorText = ""
+        ValidationResult = QMessageBox()
+        ValidationResult.setWindowTitle("Validation Result")
+
+        status, errors = self.projectValidator.validateProject(self.currentProject)
+
+        if status == VALIDATION_PROJECT_STATUS.VALIDATED:
+            ValidationResult.setText("Validation successfully")
+        else:
+            for error in errors:
+                errorText += f"- {error}\n"
+            ValidationResult.setText("Validation failed\n" \
+                                    "────────────────────────────────────────────────\n\n" \
+                                    "Some errors were found during validation project.\n"  \
+                                    "Please, review them below.")
+            ValidationResult.setDetailedText(errorText)
+
+        ValidationResult.exec()
+
+    # -----------------------------------------------------------------------------
     #                       GENERATE XML FILE PROJECT
     # -----------------------------------------------------------------------------
     def generateXmlProjectFile(self):
-        self.memoryInBytes = EEPROM_SIZES[self.currentProject.memory.size]
+        generateResult = QMessageBox()
+        generateResult.setWindowTitle("Gereration Result")
 
-        self.memoryUsed = 0
-        for variable in self.currentProject.variables:
-            self.memoryUsed += variable.size
+        if(self.projectValidator.getProjectStatus() == VALIDATION_PROJECT_STATUS.VALIDATED):
+            self.memoryInBytes = EEPROM_SIZES[self.currentProject.memory.size]
 
-        self.currentProject.memory.used = int((self.memoryUsed * 100) / self.memoryInBytes)
-        self.currentProject.memory.free = 100 - self.currentProject.memory.used
-        self.ui.MemoryUsage_progressBar.setValue(int(self.currentProject.memory.used))
-        self.ui.EepromSize_Used.setText(str(self.currentProject.memory.used) + '%')
-        self.ui.EepromSize_Free.setText(str(self.currentProject.memory.free) + '%')
+            self.memoryUsed = 0
+            for variable in self.currentProject.variables:
+                self.memoryUsed += variable.size
 
-        self.projectGenerator.updateMemory(self.currentProject.memory)
+            self.currentProject.memory.used = int((self.memoryUsed * 100) / self.memoryInBytes)
+            self.currentProject.memory.free = 100 - self.currentProject.memory.used
+            self.ui.MemoryUsage_progressBar.setValue(int(self.currentProject.memory.used))
+            self.ui.EepromSize_Used.setText(str(self.currentProject.memory.used) + '%')
+            self.ui.EepromSize_Free.setText(str(self.currentProject.memory.free) + '%')
 
-        self.projectGenerator.configVariables(self.currentProject.variables)
+            self.projectGenerator.updateMemory(self.currentProject.memory)
 
-        self.projectGenerator.generateProject("Eeprom_Configurator.xml", "Eeprom_Configurator")
+            self.projectGenerator.configVariables(self.currentProject.variables)
+
+            self.projectGenerator.generateProject("Eeprom_Configurator.xml", "Eeprom_Configurator")
+
+            generateResult.setText("The XML file was generated succesfully")
+
+            self.projectValidator.setProjectStatus(VALIDATION_PROJECT_STATUS.NO_VALIDATED)
+        else:
+            generateResult.setText("Please, run validation project")
+
+        generateResult.exec()
 
     # -----------------------------------------------------------------------------
     #                       LOAD XML FILE PROJECT
@@ -276,6 +318,9 @@ class MainWindow(QMainWindow):
             self.ui.VariablesTableWidget.setItem(self.id, TABLE_ELEMENTS_INDEX["Init Value"], QTableWidgetItem(str(variable.initValue)))
             self.ui.VariablesTableWidget.setItem(self.id, TABLE_ELEMENTS_INDEX["Comment"], QTableWidgetItem(variable.comment))
 
+    # -----------------------------------------------------------------------------
+    #                            EXIT APPLICATION 
+    # -----------------------------------------------------------------------------
     def exitApp(self):
         self.close()
 
