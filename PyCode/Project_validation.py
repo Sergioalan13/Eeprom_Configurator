@@ -19,19 +19,23 @@ class VALIDATION_PROJECT_STATUS:
 class validation:
     def __init__(self):
         self.projectStatus = VALIDATION_PROJECT_STATUS.NO_VALIDATED
-        self.variableNamesOk = True
-        self.variableValuesOk = True
-        self.variableMemRangesOk = True
+        self.namesOk = True
+        self.valuesOk = True
+        self.memRangesOk = True
+        self.noPageOverflow = True
+
         
     def validateVariableNames(self, project):
+        nameStatus = True
         for variable in project.variables:
             if not re.fullmatch(r"[A-Za-z][A-Za-z0-9_]*$", variable.name):
                 self.errors.append(f'[Error]: "{variable.name}" is not a valid name')
-                self.variableNamesOk = False
+                nameStatus = False
 
-        return self.variableNamesOk
+        return nameStatus
 
     def validateVariableValues(self, project):
+        valuesStatus = True
         for variable in project.variables:
             min_val, max_val = VARIABLE_TYPE_RANGES[variable.type]
             if("float" == variable.type):
@@ -41,11 +45,12 @@ class validation:
 
             if not (min_val <= value <= max_val):
                 self.errors.append(f'[Error]: "{variable.name}" is out of value range')
-                self.variableValuesOk = False
+                valuesStatus = False
 
-        return self.variableValuesOk
+        return valuesStatus
 
     def validateMemoryRanges(self, project):
+        rangesStatus = True
         for i in range(len(project.variables)):
 
             variable1 = project.variables[i]
@@ -58,24 +63,45 @@ class validation:
 
                 if not (endVar1 < int(variable2.address,16) or endVar2 < int(variable1.address,16)):
                     self.errors.append(f'[Error]: "{variable1.name}" is a memory overlap with "{variable2.name}"')
-                    self.variableMemRangesOk = False
+                    rangesStatus = False
 
-        return self.variableMemRangesOk
+        return rangesStatus
+
+    def validatePageOverflow(self, project):
+        pagesStatus = True
+        pageSize = int(project.memory.pageSize)
+
+        for variable in project.variables:
+
+            varStartAddress = int(variable.address, 16)
+            varEndAddress = varStartAddress + int(variable.size) - 1
+
+            startPage = varStartAddress // pageSize
+            endPage = varEndAddress // pageSize
+
+            if startPage != endPage:
+
+                self.errors.append(f'[Error]: "{variable.name}" crosses the page boundary (Page {startPage} -> Page {endPage})')
+                pagesStatus = False
+
+        return pagesStatus
 
     def validateProject(self, project):
         self.errors = []
-        self.variableNamesOk = self.validateVariableNames(project)
-        self.variableValuesOk = self.validateVariableValues(project)
-        self.variableMemRangesOk = self.validateMemoryRanges(project)
+        self.namesOk = self.validateVariableNames(project)
+        self.valuesOk = self.validateVariableValues(project)
+        self.memRangesOk = self.validateMemoryRanges(project)
+        self.noPageOverflow = self.validatePageOverflow(project)
 
-        if(self.variableNamesOk and self.variableValuesOk and self.variableMemRangesOk):
+        if(self.namesOk and self.valuesOk and self.memRangesOk and self.noPageOverflow):
             self.projectStatus = VALIDATION_PROJECT_STATUS.VALIDATED
         else:
             self.projectStatus = VALIDATION_PROJECT_STATUS.NO_VALIDATED
 
-        self.variableNamesOk = True
-        self.variableValuesOk = True
-        self.variableMemRangesOk = True
+        self.namesOk = True
+        self.valuesOk = True
+        self.memRangesOk = True
+        self.noPageOverflow = True
 
         return self.projectStatus, self.errors
     
